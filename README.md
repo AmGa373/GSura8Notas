@@ -1,70 +1,166 @@
-# Getting Started with Create React App
+# 📘 Sistema de Gestión de Notas – Frontend React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicación web desarrollada en **React** para la gestión de notas académicas, con autenticación por roles (**estudiante / administrador**), interfaz moderna, modo oscuro y persistencia de datos simulada.
 
-## Available Scripts
+El proyecto corresponde al **módulo de notas** de un sistema más grande y está preparado para una futura integración con **Spring Boot** como backend.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🚀 Funcionalidades principales
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 🔐 Autenticación y roles
+- Registro de usuarios
+- Inicio de sesión
+- Roles:
+  - 👨‍🎓 Estudiante
+  - 👨‍💼 Administrador
+- Rutas protegidas según rol
+- Persistencia de sesión (no se cierra al recargar)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 📝 Gestión de notas
+- Crear, editar y eliminar notas
+- Paginación
+- Búsqueda y filtros
+- Visualización distinta según rol:
+  - Estudiante: solo sus notas
+  - Admin: todas las notas
 
-### `npm test`
+### 📊 Dashboard de administrador
+- Tabla con notas de todos los estudiantes
+- Filtros por estudiante y título
+- Ordenamiento
+- Paginación
+- Exportación (simulada)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 👤 Perfil de usuario
+- Edición de nombre
+- Avatar con:
+  - Subida de imagen
+  - Recorte centrado
+  - Eliminación de imagen
+- Avatar + nombre visibles en Navbar
 
-### `npm run build`
+### 🎨 UI / UX
+- Navbar con identidad visual SURA
+- Modo claro / modo oscuro
+- Responsive design (desktop, tablet, mobile)
+- Feedback visual con toasts
+- Formularios accesibles y validados
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🧠 Persistencia de datos
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Actualmente los datos se almacenan usando:
 
-### `npm run eject`
+```txt
+localStorage del navegador
+Se utiliza para simular:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Usuarios registrados
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Sesión activa
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Notas académicas
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+⚠️ Nota: esta solución es solo para desarrollo y fines académicos.
+La arquitectura está preparada para reemplazar localStorage por un backend real con Spring Boot + Base de Datos.
 
-## Learn More
+🛠️ Tecnologías utilizadas
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+React
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+React Router DOM
 
-### Code Splitting
+Context API
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+CSS puro
 
-### Analyzing the Bundle Size
+React Toastify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+LocalStorage
 
-### Making a Progressive Web App
+Git / GitHub
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+🛠️ Tecnologías utilizadas
 
-### Advanced Configuration
+React
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+React Router DOM
 
-### Deployment
+Context API
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+CSS puro
 
-### `npm run build` fails to minify
+React Toastify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+LocalStorage
+
+Git / GitHub
+
+📁 Estructura del proyectoE
+
+src/
+├─ assets/              # Logos e imágenes
+├─ components/          # Componentes reutilizables
+│  ├─ Navbar
+│  ├─ ProtectedRoute
+│  └─ Auth
+├─ context/             # Contextos globales
+│  ├─ AuthContext
+│  ├─ ThemeContext
+│  └─ SearchContext
+├─ pages/               # Páginas principales
+│  ├─ home
+│  ├─ dashboard
+│  ├─ notas
+│  └─ profile
+├─ App.js
+└─ index.js
+
+▶️ Cómo ejecutar el proyecto
+
+1. Clonar el repositorio:
+
+git clone https://github.com/tu-usuario/nombre-repo.git
+
+
+2. Entrar al proyecto:
+
+cd notas
+
+
+3. Instalar dependencias:
+
+npm install
+
+
+4. Ejecutar:
+
+npm start
+
+La aplicación se abrirá en:
+
+http://localhost:3000
+
+🔮 Próximas mejoras (roadmap)
+
+Integración con Spring Boot
+
+Autenticación con JWT
+
+Base de datos relacional
+
+API REST
+
+Deploy (Netlify / Vercel)
+
+Menú hamburguesa móvil
+
+Menú desplegable del avatar
+
+👨‍💻 Autor
+
+Alejandro Meneses García
+Proyecto académico – Frontend II - CESDE
+Medellín - Colombia
