@@ -1,0 +1,284 @@
+/* ===============================
+   RESET BÁSICO
+================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===============================
+   BASE NAVBAR
+================================ */
+.navbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 64px;
+  padding: 0 32px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ===============================
+   IZQUIERDA
+================================ */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex: 1;
+}
+
+/* LOGO */
+.navbar-logo span {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* LINKS */
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 28px;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 15px;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+/* ===============================
+   BUSCADOR (CENTRADO REAL)
+================================ */
+.navbar-search {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-search input {
+  width: 260px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: none;
+  font-size: 14px;
+}
+
+/* ===============================
+   DERECHA
+================================ */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.navbar-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* BOTÓN TEMA */
+.theme-btn {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* LOGOUT */
+.logout-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+/* ===============================
+   ☀️ MODO CLARO (SURA)
+================================ */
+.navbar.light {
+  background-color: #0055a4;
+  color: #ffffff;
+}
+
+.navbar.light .navbar-logo span,
+.navbar.light .nav-link {
+  color: #ffffff;
+}
+
+.navbar.light .nav-link:hover {
+  opacity: 0.85;
+}
+
+.navbar.light .nav-link.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #ffffff;
+}
+
+.navbar.light .navbar-search input {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.navbar.light .logout-btn {
+  background: transparent;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+}
+
+.navbar.light .logout-btn:hover {
+  background: #ffffff;
+  color: #0055a4;
+}
+
+/* ===============================
+   🌙 MODO OSCURO
+================================ */
+.navbar.dark {
+  background: linear-gradient(90deg, #0b1c2d, #121c33);
+  color: #ffffff;
+}
+
+.navbar.dark .navbar-logo span {
+  color: #00a8e8;
+}
+
+.navbar.dark .nav-link {
+  color: #ffffff;
+}
+
+.navbar.dark .nav-link:hover {
+  color: #00a8e8;
+}
+
+.navbar.dark .nav-link.active::after {
+  background-color: #00a8e8;
+}
+
+.navbar.dark .navbar-search input {
+  background-color: #1f2a44;
+  color: #ffffff;
+}
+
+.navbar.dark .logout-btn {
+  border: 1px solid #00a8e8;
+  color: #00a8e8;
+  background: transparent;
+}
+
+.navbar.dark .logout-btn:hover {
+  background: #00a8e8;
+  color: #0b1c2d;
+}
+
+.navbar-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ===============================
+   USUARIO (AVATAR + NOMBRE)
+================================ */
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit; /* 🔥 usa el color del navbar */
+}
+
+.navbar-user:hover {
+  opacity: 0.85; /* hover suave, sin colores raros */
+}
+
+/* Evitar colores default de links */
+.navbar-user:visited,
+.navbar-user:active {
+  color: inherit;
+}
+
+.navbar-username {
+  font-size: 14px;
+  font-weight: 500;
+  color: inherit;
+  white-space: nowrap;
+}
+
+/* ===============================
+   RESPONSIVE NAVBAR
+================================ */
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .navbar-search input {
+    width: 200px;
+  }
+}
+
+/* MÓVIL */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 16px;
+  }
+
+  /* Ocultar links */
+  .navbar-links {
+    display: none;
+  }
+
+  /* Ocultar buscador */
+  .navbar-search {
+    display: none;
+  }
+
+  /* Avatar y acciones más compactas */
+  .navbar-actions {
+    gap: 8px;
+  }
+
+  .navbar-username {
+    display: none; /* solo avatar */
+  }
+}
+
+/* MÓVIL PEQUEÑO */
+@media (max-width: 480px) {
+  .navbar-logo span {
+    font-size: 18px;
+  }
+
+  .navbar-avatar {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* LOGO SURA */
+.navbar-logo img {
+  height: 32px;
+  object-fit: contain;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .navbar-logo img {
+    height: 26px;
+  }
+}

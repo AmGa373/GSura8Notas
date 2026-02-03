@@ -1,0 +1,280 @@
+/* ===============================
+   AUTH (LOGIN / REGISTER)
+================================ */
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Card principal */
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px 28px;
+  border-radius: 12px;
+  position: relative;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  animation: fadeUp 0.4s ease;
+}
+
+/* Accent bar superior */
+.auth-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 5px;
+  width: 100%;
+  background: linear-gradient(90deg, #0033a0, #2563eb);
+  border-radius: 12px 12px 0 0;
+}
+
+/* Light mode */
+body.light .auth-card {
+  background-color: #ffffff;
+}
+
+/* Dark mode */
+body.dark .auth-card {
+  background-color: #1e293b;
+  color: #e5e7eb;
+}
+
+/* Título */
+.auth-card h2 {
+  text-align: center;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #0033a0;
+}
+
+body.dark .auth-card h2 {
+  color: #93c5fd;
+}
+
+/* Subtítulo */
+.auth-subtitle {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 22px;
+  color: #64748b;
+}
+
+body.dark .auth-subtitle {
+  color: #94a3b8;
+}
+
+/* Formulario */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Inputs */
+.auth-form input,
+.auth-form select {
+  padding: 11px 12px;
+  border-radius: 7px;
+  font-size: 14px;
+  border: 1px solid #cfd8e3;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+body.dark .auth-form input,
+body.dark .auth-form select {
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  color: #e5e7eb;
+}
+
+/* Botón */
+.auth-form button {
+  margin-top: 12px;
+  padding: 11px;
+  border-radius: 7px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: linear-gradient(90deg, #0033a0, #2563eb);
+  color: #ffffff;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.auth-form button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(37, 99, 235, 0.35);
+}
+
+/* Links */
+.auth-links {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.auth-links a {
+  color: #0033a0;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+}
+
+body.dark .auth-links a {
+  color: #93c5fd;
+}
+
+/* Animación suave */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===============================
+   PASSWORD WRAPPER (FINAL REAL)
+================================ */
+
+.password-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #cfd8e3;
+  border-radius: 7px;
+  background-color: #ffffff;
+  padding-right: 10px;
+}
+
+.password-wrapper input {
+  flex: 1;
+  border: none;
+  padding: 11px 12px;
+  font-size: 14px;
+}
+
+.password-wrapper input:focus {
+  outline: none;
+}
+
+.password-wrapper button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.password-wrapper button img {
+  width: 18px;
+  height: 18px;
+  opacity: 0.8;
+
+  transform: translateY(-6px); /* 🔥 ajuste óptico real */
+}
+
+/* Dark mode */
+body.dark .password-wrapper {
+  background-color: #0f172a;
+  border: 1px solid #334155;
+}
+
+body.dark .password-wrapper input {
+  background-color: transparent;
+  color: #e5e7eb;
+}
+
+/* ===============================
+   RESPONSIVE AUTH
+================================ */
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 24px 16px;
+  }
+
+  .auth-card h2 {
+    font-size: 20px;
+  }
+
+  .auth-form input,
+  .auth-form select,
+  .auth-form button {
+    font-size: 14px;
+  }
+}
+
+/* ===============================
+   RESPONSIVE LOGIN / REGISTER
+================================ */
+
+/* TABLETS */
+@media (max-width: 768px) {
+  .auth-page {
+    padding: 24px;
+  }
+
+  .auth-card {
+    width: 100%;
+    max-width: 420px;
+  }
+}
+
+/* MÓVILES */
+@media (max-width: 480px) {
+  .auth-page {
+    padding: 16px;
+  }
+
+  .auth-card {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+
+  .auth-card h2 {
+    font-size: 20px;
+  }
+
+  .auth-subtitle {
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .auth-form input,
+  .auth-form select {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .auth-form button {
+    padding: 12px;
+    font-size: 15px;
+  }
+
+  .auth-links {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .password-wrapper button {
+    right: 10px;
+  }
+}

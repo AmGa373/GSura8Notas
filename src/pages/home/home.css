@@ -1,0 +1,110 @@
+/* ===============================
+   HOME PAGE
+================================ */
+
+.home-page {
+  padding: 48px 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* HERO */
+.home-hero {
+  margin-bottom: 40px;
+}
+
+.home-hero h1 {
+  font-size: 32px;
+  color: #0033a0;
+  margin-bottom: 6px;
+}
+
+.home-hero p {
+  font-size: 16px;
+  color: #64748b;
+}
+
+/* DARK MODE */
+body.dark .home-hero h1 {
+  color: #93c5fd;
+}
+
+body.dark .home-hero p {
+  color: #94a3b8;
+}
+
+/* CARDS */
+.home-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.home-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  cursor: pointer;
+
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.home-card h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #0033a0;
+}
+
+.home-card p {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 14px;
+}
+
+.home-card span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0055a4;
+}
+
+/* HOVER */
+.home-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(0, 51, 160, 0.25);
+}
+
+/* DARK MODE */
+body.dark .home-card {
+  background-color: #1e293b;
+}
+
+body.dark .home-card h3 {
+  color: #93c5fd;
+}
+
+body.dark .home-card p {
+  color: #94a3b8;
+}
+
+body.dark .home-card span {
+  color: #38bdf8;
+}
+
+/* ===============================
+   RESPONSIVE HOME
+================================ */
+
+@media (max-width: 768px) {
+  .home-page {
+    padding: 32px 20px;
+  }
+
+  .home-hero h1 {
+    font-size: 26px;
+  }
+
+  .home-cards {
+    grid-template-columns: 1fr;
+  }
+}
