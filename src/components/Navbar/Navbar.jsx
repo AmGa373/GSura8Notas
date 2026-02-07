@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useSearch } from '../../context/SearchContext';
@@ -25,9 +25,9 @@ function Navbar() {
     <nav className={`navbar ${theme}`}>
       {/* IZQUIERDA */}
       <div className="navbar-left">
-        <div className="navbar-logo">
+        <Link to="/home" className="navbar-logo">
           <img src={logo} alt="SURA" />
-        </div>
+        </Link>
 
         <ul className="navbar-links">
           <li>
@@ -45,11 +45,18 @@ function Navbar() {
           )}
 
           {user.role === 'admin' && (
-            <li>
-              <NavLink to="/dashboard" className="nav-link">
-                Dashboard
-              </NavLink>
-            </li>
+            <>
+              <li>
+                <NavLink to="/dashboard" className="nav-link">
+                  Dashboard
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/materias" className="nav-link">
+                  Materias
+                </NavLink>
+              </li>
+            </>
           )}
         </ul>
       </div>

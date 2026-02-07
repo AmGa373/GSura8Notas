@@ -422,3 +422,59 @@ body.dark .modal-card {
     min-width: 600px;
   }
 }
+
+.dashboard-title {
+  align-items: center;
+  gap: 8px;
+}
+
+/* ===============================
+   FORMULARIO ADMIN
+================================ */
+.admin-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.admin-form h3 {
+  grid-column: 1 / -1;
+}
+
+.h3-materia {
+  text-align: center;
+}
+
+body.dark .student-form h3 {
+  color: #ffffff;
+}
+
+.admin-form input,
+.admin-form select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+}
+
+.admin-form button {
+  grid-column: 1 / -1;
+  padding: 10px;
+  background: #0055a4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.admin-form button:hover {
+  background: #003b82;
+}
+
+.admin-form h3 {
+  color: #0f172a; /* modo claro */
+}
+
+/* 🌙 MODO OSCURO */
+body.dark .admin-form h3 {
+  color: #e5e7eb; /* texto claro */
+}

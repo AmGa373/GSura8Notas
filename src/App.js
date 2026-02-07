@@ -8,6 +8,8 @@ import Home from './pages/home/Home';
 import Dashboard from './pages/dashboard/Dashboard';
 import Notas from './pages/notas/Notas';
 import Profile from './pages/profile/Profile';
+import Materias from './pages/materias/Materias';
+
 
 import Navbar from './components/Navbar/Navbar';
 import { useAuth } from './context/AuthContext';
@@ -51,6 +53,15 @@ function App() {
           element={
             <ProtectedRoute role="admin">
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/materias"
+          element={
+            <ProtectedRoute role="admin">
+              <Materias />
             </ProtectedRoute>
           }
         />

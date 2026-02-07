@@ -48,6 +48,11 @@ function Profile() {
     toast.success('Perfil actualizado');
   };
 
+  const rolesMap = {
+  admin: 'Administrador',
+  student: 'Estudiante',
+};
+
   return (
     <div className="profile-page">
       <h1>Mi Perfil</h1>
@@ -89,7 +94,7 @@ function Profile() {
           <input value={user.email} disabled />
 
           <label>Rol</label>
-          <input value={user.role} disabled />
+          <input value={rolesMap[user.role] || user.role} disabled />
 
           <button onClick={guardarCambios}>Guardar cambios</button>
         </div>

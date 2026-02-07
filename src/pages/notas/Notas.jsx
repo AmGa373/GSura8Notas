@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import CrearNota from './CrearNota';
-import { toast } from 'react-toastify';
+import { exportarNotasCSV, exportarNotasPDF } from '../../utils/exportNotas';
 import '../dashboard/dashboard.css';
 
 const ITEMS_POR_PAGINA = 5;
@@ -13,136 +12,119 @@ function Notas() {
   const [paginaActual, setPaginaActual] = useState(1);
   const [busqueda, setBusqueda] = useState('');
 
-  // Edición
-  const [notaEditando, setNotaEditando] = useState(null);
-  const [tituloEdit, setTituloEdit] = useState('');
-  const [contenidoEdit, setContenidoEdit] = useState('');
-
-  // 🔄 Cargar notas del estudiante
+  /* ===============================
+     CARGAR NOTAS DEL ESTUDIANTE
+  ================================ */
   useEffect(() => {
     const storedNotas = localStorage.getItem('notas');
+
     if (storedNotas && user) {
       const todas = JSON.parse(storedNotas);
+
       const propias = todas.filter(
-        (nota) => nota.owner === user.email
+        (nota) => nota.estudianteEmail === user.email
       );
+
       setNotas(propias);
     }
   }, [user]);
 
-  // ➕ Agregar nota
-  const agregarNota = (nuevaNota) => {
-    const stored = JSON.parse(localStorage.getItem('notas')) || [];
-    const actualizadas = [...stored, nuevaNota];
+  /* ===============================
+     FILTRO / BÚSQUEDA
+  ================================ */
+  const notasFiltradas = notas.filter((nota) => {
+    const materia = nota.materiaNombre || '';
+    const tipo = nota.tipoExamen || '';
 
-    localStorage.setItem('notas', JSON.stringify(actualizadas));
-    setNotas((prev) => [...prev, nuevaNota]);
-    setPaginaActual(1);
-  };
-
-  // ✏️ Abrir edición
-  const abrirEdicion = (nota) => {
-    setNotaEditando(nota);
-    setTituloEdit(nota.titulo);
-    setContenidoEdit(nota.contenido);
-  };
-
-  // 💾 Guardar edición
-  const guardarEdicion = () => {
-    if (!tituloEdit.trim() || !contenidoEdit.trim()) {
-      toast.error('Los campos no pueden estar vacíos');
-      return;
-    }
-
-    const actualizadas = notas.map((n) =>
-      n.id === notaEditando.id
-        ? { ...n, titulo: tituloEdit, contenido: contenidoEdit }
-        : n
+    return (
+      materia.toLowerCase().includes(busqueda.toLowerCase()) ||
+      tipo.toLowerCase().includes(busqueda.toLowerCase())
     );
-    setNotas(actualizadas);
+  });
 
-    const todas = JSON.parse(localStorage.getItem('notas')) || [];
-    const sincronizadas = todas.map((n) =>
-      n.id === notaEditando.id
-        ? { ...n, titulo: tituloEdit, contenido: contenidoEdit }
-        : n
-    );
-
-    localStorage.setItem('notas', JSON.stringify(sincronizadas));
-
-    setNotaEditando(null);
-    toast.success('Nota actualizada');
-  };
-
-  // 🔍 BÚSQUEDA
-  const notasFiltradas = notas.filter(
-    (nota) =>
-      nota.titulo.toLowerCase().includes(busqueda.toLowerCase()) ||
-      nota.contenido.toLowerCase().includes(busqueda.toLowerCase())
-  );
-
-  // 🔢 PAGINACIÓN
+  /* ===============================
+     PAGINACIÓN
+  ================================ */
   const totalPaginas = Math.ceil(
     notasFiltradas.length / ITEMS_POR_PAGINA
   );
+
   const inicio = (paginaActual - 1) * ITEMS_POR_PAGINA;
   const fin = inicio + ITEMS_POR_PAGINA;
+
   const notasPaginadas = notasFiltradas.slice(inicio, fin);
 
   useEffect(() => {
     setPaginaActual(1);
   }, [busqueda]);
 
+  /* ===============================
+     EXPORTACIÓN
+  ================================ */
+  const exportarCSV = () => {
+    exportarNotasCSV(notasFiltradas);
+  };
+
+  const exportarPDF = () => {
+    exportarNotasPDF(notasFiltradas);
+  };
+
   return (
     <div className="dashboard-container">
       <h1 className="dashboard-title">Mis Notas</h1>
 
-      {/* CREAR NOTA */}
-      <div className="dashboard-card student-create-card">
-        <CrearNota agregarNota={agregarNota} />
-      </div>
-
-      {/* BUSCADOR */}
+      {/* FILTROS + EXPORTAR */}
       <div className="dashboard-card dashboard-filters">
         <input
           type="text"
-          placeholder="Buscar en mis notas..."
+          placeholder="Buscar por materia o tipo de examen..."
           value={busqueda}
           onChange={(e) => setBusqueda(e.target.value)}
         />
+
+        <div className="export-actions">
+          <button
+            className="btn btn-outline"
+            onClick={exportarCSV}
+          >
+            Exportar CSV
+          </button>
+
+          <button
+            className="btn btn-outline"
+            onClick={exportarPDF}
+          >
+            Exportar PDF
+          </button>
+        </div>
       </div>
 
-      {/* LISTA */}
+      {/* TABLA */}
       <div className="dashboard-card">
         {notasFiltradas.length === 0 ? (
-          <p>No hay notas.</p>
+          <p>No tienes notas registradas.</p>
         ) : (
           <>
             <div className="table-container">
               <table className="sura-table">
                 <thead>
                   <tr>
-                    <th>Título</th>
-                    <th>Contenido</th>
+                    <th>Materia</th>
+                    <th>Tipo</th>
+                    <th>Nota</th>
                     <th>Fecha</th>
-                    <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
                   {notasPaginadas.map((nota) => (
                     <tr key={nota.id}>
-                      <td>{nota.titulo}</td>
-                      <td>{nota.contenido}</td>
+                      <td>{nota.materiaNombre}</td>
+                      <td>{nota.tipoExamen}</td>
+                      <td>{nota.nota}</td>
                       <td>
-                        {new Date(nota.fecha).toLocaleString('es-CO')}
-                      </td>
-                      <td>
-                        <button
-                          className="btn btn-outline"
-                          onClick={() => abrirEdicion(nota)}
-                        >
-                          Editar
-                        </button>
+                        {new Date(nota.fecha).toLocaleDateString(
+                          'es-CO'
+                        )}
                       </td>
                     </tr>
                   ))}
@@ -159,7 +141,9 @@ function Notas() {
                 ).map((num) => (
                   <button
                     key={num}
-                    className={num === paginaActual ? 'active' : ''}
+                    className={
+                      num === paginaActual ? 'active' : ''
+                    }
                     onClick={() => setPaginaActual(num)}
                   >
                     {num}
@@ -170,43 +154,6 @@ function Notas() {
           </>
         )}
       </div>
-
-      {/* MODAL EDITAR */}
-      {notaEditando && (
-        <div className="modal-overlay">
-          <div className="modal-card">
-            <h3>Editar Nota</h3>
-
-            <input
-              value={tituloEdit}
-              onChange={(e) => setTituloEdit(e.target.value)}
-            />
-
-            <textarea
-              value={contenidoEdit}
-              onChange={(e) => setContenidoEdit(e.target.value)}
-            />
-
-            <div className="modal-actions">
-              <button
-                className="btn btn-primary"
-                onClick={guardarEdicion}
-              >
-                Guardar
-              </button>
-              <button
-                className="btn btn-outline"
-                onClick={() => {
-                  setNotaEditando(null);
-                  toast.info('Edición cancelada');
-                }}
-              >
-                Cancelar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
