@@ -1,228 +1,225 @@
 # 📘 Sistema de Gestión de Notas – Frontend React
 
-Aplicación web desarrollada en React para la gestión académica de notas y materias, con autenticación por roles (estudiante / administrador), interfaz moderna, modo oscuro y persistencia de datos simulada.
+Aplicación web desarrollada en React para la gestión académica de notas y materias, con control de acceso por roles (estudiante / administrador), interfaz moderna, modo oscuro y persistencia de datos simulada.
 
-Este proyecto corresponde al módulo de notas de un sistema académico más grande y está preparado para integrarse con un backend en Spring Boot.
+Este proyecto corresponde al **módulo de notas** de un sistema académico más grande y está diseñado para integrarse con un sistema principal que gestiona la autenticación global (JWT).
 
-# 🚀 Funcionalidades principales
-# 🔐 Autenticación y roles
+---
 
-- Registro de usuarios
+## 🚀 Funcionalidades principales
 
-- Inicio de sesión
+## 🔐 Control de acceso por roles
 
-- Roles:
+⚠️ Este módulo **no implementa login propio**.
 
-# - 👨‍🎓 Estudiante
+El usuario autenticado es recibido desde el sistema principal y el módulo:
 
-# - 👨‍💼 Administrador (Docente)
+- Respeta el rol recibido
+- Restringe vistas según permisos
+- Redirige si el rol no está autorizado
 
-- Rutas protegidas según rol
+Roles soportados:
 
-- Persistencia de sesión (no se cierra al recargar la página)
+- 👨‍🎓 Estudiante
+- 👨‍💼 Administrador (Docente)
 
-- Redirecciones automáticas según rol
+---
 
-# 📝 Gestión de notas (lógica corregida por rol)
-# 👨‍💼 Administrador
+## 📝 Gestión de notas
+
+### 👨‍💼 Administrador
+
+Puede:
 
 - Crear notas académicas
-
 - Editar notas
-
 - Eliminar notas
+- Asignar notas a:
+  - Estudiante
+  - Materia
+  - Tipo de examen
 
-# Asignar notas a:
-
-- Estudiante
-
-- Materia
-
-- Tipo de examen
-
-# Filtros combinados:
+#### Filtros combinados:
 
 - Por estudiante
-
 - Por materia
 
-- Paginación
+#### Paginación
 
-# Exportación:
+- 5 elementos por página
 
-- 📄 PDF
+#### Exportación:
 
+- 📄 PDF (jsPDF + AutoTable)
 - 📑 CSV
 
-# 👨‍🎓 Estudiante
+---
 
-- Visualización solo de sus propias notas
+### 👨‍🎓 Estudiante
 
-- Búsqueda por materia o tipo de examen
+Puede:
 
-- Paginación
+- Visualizar únicamente sus propias notas
+- Buscar por materia o tipo de examen
+- Paginar resultados
 
-# Exportación de sus notas:
+#### Exportación de sus notas:
 
 - 📄 PDF
-
 - 📑 CSV
 
-# ❌ No puede crear, editar ni eliminar notas
+❌ No puede:
 
-# 📚 Gestión de materias (Administrador)
+- Crear notas
+- Editar notas
+- Eliminar notas
+- Gestionar materias
+
+---
+
+## 📚 Gestión de materias (Administrador)
 
 - Crear materias
-
 - Editar materias
-
 - Eliminar materias
-
 - Validación de duplicados por código
-
 - Paginación (5 por página)
+- Diseño unificado con Dashboard
 
-- Estilos y comportamiento consistentes con Dashboard
-
-# Preparado para:
+Preparado para:
 
 - Bloquear eliminación si la materia tiene notas asociadas
 
-# 📊 Dashboard del administrador
+---
 
-- Tabla con todas las notas del sistema
+## 📊 Dashboard del administrador
 
-# Filtros por:
-
-- Estudiante
-
-- Materia
-
+- Visualización completa de todas las notas
+- Filtros por:
+  - Estudiante
+  - Materia
 - Paginación
+- Edición inline
+- Eliminación de registros
 
-- Edición y eliminación de notas
+### Exportación completa:
 
-# Exportación completa:
+- PDF
+- CSV
 
-PDF con tabla
+Diseño coherente con la identidad visual del sistema.
 
-CSV
+---
 
-# Diseño unificado con el resto del sistema
+## 👤 Perfil de usuario
 
-# 👤 Perfil de usuario
+El módulo muestra la información del usuario autenticado.
 
-# Edición de:
+Incluye:
 
-- Nombre completo
+- Visualización de nombre
+- Visualización de email
+- Rol traducido (Administrador / Estudiante)
+- Avatar con vista previa (modo desarrollo)
 
-# Avatar:
+⚠️ La modificación real del perfil debe gestionarse desde el sistema principal.
 
-- Subida de imagen
+---
 
-- Vista previa
+## 🎨 UI / UX
 
-- Eliminación
-
-- Avatar + nombre visibles en el Navbar
-
-# Visualización del rol en formato legible:
-
-- Administrador
-
-- Estudiante
-
-# 🎨 UI / UX
-
-- Navbar con identidad visual SURA
-
+- Navbar con identidad visual inspirada en SURA
 - Logo dinámico (modo claro / oscuro)
-
-- Modo claro / modo oscuro global
-
-# Responsive design:
-
-- Desktop
-
-- Tablet
-
-- Mobile
-
+- Modo oscuro global
+- Buscador central integrado
+- Responsive design:
+  - Desktop
+  - Tablet
+  - Mobile
 - Feedback visual con React Toastify
-
 - Formularios validados
+- Experiencia consistente en todo el módulo
 
-- Experiencia consistente en todo el sistema
+---
 
-# 🧠 Persistencia de datos (modo desarrollo)
+## 🧠 Persistencia de datos (modo desarrollo)
 
-Actualmente los datos se almacenan usando:
+Actualmente se utiliza:
 
-# localStorage del navegador
+`localStorage` del navegador
 
-
-# Se utiliza para simular:
-
-- Usuarios registrados
-
-- Sesión activa
+Se usa para simular:
 
 - Notas académicas
-
 - Materias
 
-# ⚠️ Nota importante:
-Esta solución es solo para fines académicos y desarrollo frontend.
-La arquitectura está preparada para reemplazar localStorage por un backend real con Spring Boot + Base de Datos.
+⚠️ Este módulo ya no gestiona usuarios ni sesión propia.
 
-# 🛠️ Tecnologías utilizadas
+La arquitectura está preparada para:
+
+- Integrarse con backend Spring Boot
+- Recibir usuario autenticado mediante JWT
+- Reemplazar localStorage por base de datos real
+
+---
+
+## 🛠️ Tecnologías utilizadas
 
 - React
-
 - React Router DOM
-
 - Context API
-
 - CSS puro
-
 - React Toastify
-
 - jsPDF
-
 - jsPDF-AutoTable
-
-- LocalStorage
-
+- LocalStorage (modo desarrollo)
 - Git / GitHub
 
-# 📁 Estructura del proyecto
+---
+
+## 📁 Estructura actual del proyecto
+
 src/
-├─ assets/              # Logos e imágenes
-├─ components/          # Componentes reutilizables
-│  ├─ Navbar
-│  ├─ ProtectedRoute
-│  └─ Auth
-├─ context/             # Contextos globales
-│  ├─ AuthContext
-│  ├─ ThemeContext
-│  └─ SearchContext
-├─ pages/               # Páginas principales
-│  ├─ home
-│  ├─ dashboard
-│  ├─ notas
-│  ├─ materias
-│  └─ profile
-├─ utils/               # Utilidades
-│  └─ exportNotas.js
+├─ assets/ # Logos e imágenes
+├─ components/
+│ └─ Navbar # Barra de navegación
+├─ context/
+│ ├─ UserContext # Usuario inyectado (modo desarrollo)
+│ ├─ ThemeContext
+│ └─ SearchContext
+├─ pages/
+│ ├─ home
+│ ├─ dashboard
+│ ├─ notas
+│ ├─ materias
+│ └─ profile
+├─ utils/
+│ └─ exportNotas.js
 ├─ App.js
 └─ index.js
 
-# ▶️ Cómo ejecutar el proyecto
+## 🔗 Integración con el sistema principal
+
+Este módulo está diseñado para funcionar dentro de una aplicación mayor.
+
+Flujo esperado en producción:
+
+1. Usuario inicia sesión en módulo de autenticación principal
+2. Backend valida credenciales
+3. Backend devuelve JWT
+4. El sistema principal guarda:
+   - token
+   - datos del usuario
+5. Este módulo recibe el usuario autenticado
+6. Se habilitan vistas según `user.rol`
+
+---
+
+## ▶️ Cómo ejecutar el proyecto
 
 Clonar el repositorio:
 
 git clone https://github.com/AmGa373/GSura8Notas.git
-
 
 Entrar al proyecto:
 
@@ -243,28 +240,24 @@ La aplicación se abrirá en:
 
 👉 http://localhost:3000
 
-# 🔮 Próximas mejoras (roadmap)
+---
 
-Integración con Spring Boot
+## 🔮 Próximas mejoras (Roadmap)
 
-API REST
+- Integración completa con Spring Boot
+- API REST real
+- Autenticación con JWT desde backend
+- Base de datos relacional (MySQL / PostgreSQL)
+- Control de permisos desde backend
+- Validación cruzada entre módulos
+- Bloqueo real de eliminación de materias con notas asociadas
+- Deploy (Netlify / Vercel)
+- Optimización modular tipo microfrontend
 
-Autenticación con JWT
+---
 
-Base de datos relacional (MySQL / PostgreSQL)
+## 👨‍💻 Autor
 
-Control de permisos desde backend
-
-Bloqueo de eliminación de materias con notas
-
-Deploy (Netlify / Vercel)
-
-Menú hamburguesa móvil
-
-Menú desplegable del avatar
-
-# 👨‍💻 Autor
-
-Alejandro Meneses García
-Proyecto académico – Frontend II
+Alejandro Meneses García  
+Proyecto académico – Frontend II  
 CESDE – Medellín, Colombia 🇨🇴
