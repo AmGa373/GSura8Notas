@@ -1,8 +1,4 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-
-import Login from './components/Auth/Login/Login';
-import Register from './components/Auth/Register/Register';
 
 import Home from './pages/home/Home';
 import Dashboard from './pages/dashboard/Dashboard';
@@ -12,57 +8,40 @@ import Materias from './pages/materias/Materias';
 
 
 import Navbar from './components/Navbar/Navbar';
-import { useAuth } from './context/AuthContext';
+import { useUser } from './context/UserContext';
 
 function App() {
-  const { user } = useAuth();
+  const { user } = useUser();
 
   return (
     <>
-      {/* NAVBAR SOLO SI HAY SESIÓN */}
-      {user && <Navbar />}
+      {/* Navbar siempre visible porque ya hay usuario inyectado */}
+      <Navbar />
 
       <Routes>
-        {/* AUTH */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
 
         {/* HOME */}
-        <Route
-          path="/home"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/home" element={<Home />} />
 
         {/* PERFIL */}
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/profile" element={<Profile />} />
 
         {/* ADMIN */}
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute role="admin">
-              <Dashboard />
-            </ProtectedRoute>
+            user.rol === "admin"
+              ? <Dashboard />
+              : <Navigate to="/home" />
           }
         />
 
         <Route
           path="/materias"
           element={
-            <ProtectedRoute role="admin">
-              <Materias />
-            </ProtectedRoute>
+            user.rol === "admin"
+              ? <Materias />
+              : <Navigate to="/home" />
           }
         />
 
@@ -70,21 +49,16 @@ function App() {
         <Route
           path="/notas"
           element={
-            <ProtectedRoute role="student">
-              <Notas />
-            </ProtectedRoute>
+            user.rol === "student"
+              ? <Notas />
+              : <Navigate to="/home" />
           }
         />
 
-        {/* REDIRECCIONES */}
-        <Route
-          path="/"
-          element={<Navigate to={user ? '/home' : '/login'} />}
-        />
-        <Route
-          path="*"
-          element={<Navigate to={user ? '/home' : '/login'} />}
-        />
+        {/* REDIRECCIÓN INICIAL */}
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="*" element={<Navigate to="/home" />} />
+
       </Routes>
     </>
   );

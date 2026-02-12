@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useAuth } from '../../context/AuthContext';
+import { useUser } from '../../context/UserContext';
 import { exportarNotasCSV, exportarNotasPDF } from '../../utils/exportNotas';
 import '../dashboard/dashboard.css';
 
 const ITEMS_POR_PAGINA = 5;
 
 function Notas() {
-  const { user } = useAuth();
+  const { user } = useUser();
 
   const [notas, setNotas] = useState([]);
   const [paginaActual, setPaginaActual] = useState(1);

@@ -1,12 +1,12 @@
-import { useAuth } from '../../context/AuthContext';
+import { useUser } from '../../context/UserContext';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import './profile.css';
 
 function Profile() {
-  const { user, updateProfile } = useAuth();
+  const { user } = useUser();
 
-  const [nombre, setNombre] = useState(user.nombreCompleto || '');
+  const [nombre, setNombre] = useState(user.nombre || '');
   const [preview, setPreview] = useState(user.avatar || null);
 
   // 📷 Seleccionar imagen
@@ -21,43 +21,33 @@ function Profile() {
     reader.readAsDataURL(file);
   };
 
-  // ❌ Quitar avatar
+  // ❌ Quitar avatar (solo local)
   const quitarAvatar = () => {
-    updateProfile({
-      ...user,
-      avatar: null
-    });
-
     setPreview(null);
-    toast.info('Imagen de perfil eliminada');
+    toast.info('Imagen de perfil eliminada (modo módulo)');
   };
 
-  // 💾 Guardar cambios
+  // 💾 Guardar cambios (simulación)
   const guardarCambios = () => {
     if (!nombre.trim()) {
       toast.error('El nombre no puede estar vacío');
       return;
     }
 
-    updateProfile({
-      ...user,
-      nombreCompleto: nombre,
-      avatar: preview
-    });
-
-    toast.success('Perfil actualizado');
+    toast.success('Cambios guardados localmente (modo módulo)');
   };
 
   const rolesMap = {
-  admin: 'Administrador',
-  student: 'Estudiante',
-};
+    admin: 'Administrador',
+    student: 'Estudiante',
+  };
 
   return (
     <div className="profile-page">
       <h1>Mi Perfil</h1>
 
       <div className="profile-card">
+
         {/* AVATAR */}
         <div className="avatar-section">
           <img
@@ -94,9 +84,11 @@ function Profile() {
           <input value={user.email} disabled />
 
           <label>Rol</label>
-          <input value={rolesMap[user.role] || user.role} disabled />
+          <input value={rolesMap[user.rol]} disabled />
 
-          <button onClick={guardarCambios}>Guardar cambios</button>
+          <button onClick={guardarCambios}>
+            Guardar cambios
+          </button>
         </div>
       </div>
     </div>

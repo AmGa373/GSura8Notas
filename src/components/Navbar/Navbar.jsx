@@ -1,5 +1,5 @@
 import { NavLink, Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+import { useUser } from '../../context/UserContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useSearch } from '../../context/SearchContext';
 
@@ -9,20 +9,15 @@ import logoWhite from '../../assets/logo-sura-white.png';
 import './Navbar.css';
 
 function Navbar() {
-  const { user, logout } = useAuth();
+  const { user, cambiarRol } = useUser();
   const { theme, toggleTheme } = useTheme();
   const { search, setSearch } = useSearch();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
 
   const logo = theme === 'dark' ? logoWhite : logoBlue;
 
   return (
     <nav className={`navbar ${theme}`}>
+      
       {/* IZQUIERDA */}
       <div className="navbar-left">
         <Link to="/home" className="navbar-logo">
@@ -36,7 +31,7 @@ function Navbar() {
             </NavLink>
           </li>
 
-          {user.role === 'student' && (
+          {user.rol === 'student' && (
             <li>
               <NavLink to="/notas" className="nav-link">
                 Mis Notas
@@ -44,7 +39,7 @@ function Navbar() {
             </li>
           )}
 
-          {user.role === 'admin' && (
+          {user.rol === 'admin' && (
             <>
               <li>
                 <NavLink to="/dashboard" className="nav-link">
@@ -82,17 +77,26 @@ function Navbar() {
             />
           )}
           <span className="navbar-username">
-            {user.nombreCompleto || user.email}
+            {user.nombre || user.email}
           </span>
         </NavLink>
 
         <button className="theme-btn" onClick={toggleTheme}>
           {theme === 'dark' ? '☀️' : '🌙'}
         </button>
-
-        <button className="logout-btn" onClick={handleLogout}>
-          Salir
+        {/* ================================
+           🔄 BOTÓN TEMPORAL CAMBIO DE ROL
+           (Solo para entorno de desarrollo)
+        ================================== */}
+        <button
+          className="role-btn"
+          onClick={() =>
+            cambiarRol(user.rol === 'admin' ? 'student' : 'admin')
+          }
+        >
+          Cambiar a {user.rol === 'admin' ? 'Estudiante' : 'Admin'}
         </button>
+        {/* ================================= */}
       </div>
     </nav>
   );

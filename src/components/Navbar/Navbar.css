@@ -94,6 +94,19 @@
   cursor: pointer;
 }
 
+/* =====================================
+   🔄 BOTÓN CAMBIO DE ROL (TEMPORAL DEV)
+====================================== */
+.role-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: 0.2s ease;
+  border: none;
+}
+
 /* LOGOUT */
 .logout-btn {
   padding: 6px 14px;
@@ -146,6 +159,18 @@
   color: #0055a4;
 }
 
+/* 🔄 Botón cambio de rol - Modo Claro */
+.navbar.light .role-btn {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+.navbar.light .role-btn:hover {
+  background: #ffffff;
+  color: #0055a4;
+}
+
 /* ===============================
    🌙 MODO OSCURO
 ================================ */
@@ -191,6 +216,18 @@
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+/* 🔄 Botón cambio de rol - Modo Oscuro */
+.navbar.dark .role-btn {
+  border: 1px solid #00a8e8;
+  color: #00a8e8;
+  background: transparent;
+}
+
+.navbar.dark .role-btn:hover {
+  background: #00a8e8;
+  color: #0b1c2d;
 }
 
 /* ===============================
@@ -256,6 +293,10 @@
   .navbar-username {
     display: none; /* solo avatar */
   }
+
+  .role-btn {
+  display: none;
+}
 }
 
 /* MÓVIL PEQUEÑO */

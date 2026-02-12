@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 
-import { AuthProvider } from './context/AuthContext';
+import { UserProvider } from './context/UserContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { SearchProvider } from './context/SearchContext';
 
@@ -14,7 +14,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <BrowserRouter>
-    <AuthProvider>
+    <UserProvider>
       <ThemeProvider>
         <SearchProvider>
           <App />
@@ -30,6 +30,6 @@ root.render(
           />
         </SearchProvider>
       </ThemeProvider>
-    </AuthProvider>
+    </UserProvider>
   </BrowserRouter>
 );
